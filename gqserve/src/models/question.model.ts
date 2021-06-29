@@ -1,18 +1,19 @@
-// users-model.ts - A KnexJS
+// question-model.ts - A KnexJS
 //
 // See http://knexjs.org/
 // for more of what you can do here.
-import { Application } from '../declarations';
 import Knex from 'knex';
+import { Application } from '../declarations';
 
 export default function (app: Application): Knex {
   const db: Knex = app.get('knexClient');
-  const tableName = 'users';
+  const tableName = 'question';
   db.schema.hasTable(tableName).then(exists => {
     if (!exists) {
       console.error(`Error: table ${tableName} missing`);
     }
   });
+
 
   return db;
 }

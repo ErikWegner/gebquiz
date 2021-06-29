@@ -1,0 +1,13 @@
+uuid: ffe01d0d-f363-43c7-9e96-6e00b01097e0
+description: |
+  You have been talking a long time.
+
+  After the last sentence, you are offered the choice between two pills: a red one
+  and a blue one.
+
+  Which one do you take?
+answerA: Red pill
+answerB: Blue pill
+pointsA: 1
+pointsB: 1
+kind: A
