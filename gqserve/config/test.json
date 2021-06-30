@@ -1,1 +1,8 @@
-{}
+{
+  "sqlite": {
+    "client": "sqlite3",
+    "connection": {
+      "filename": "test.sqlite"
+    }
+  }
+}

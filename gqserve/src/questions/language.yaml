@@ -1,0 +1,12 @@
+uuid: 2e415331-0644-42ef-81be-51204dd88be1
+description: |
+  Which languages does he speak?
+answerA: Italian
+answerB: British English
+answerC: German
+answerD: French
+pointsA: 0
+pointsB: 1
+pointsC: 1
+pointsD: 1
+kind: m

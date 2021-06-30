@@ -8,6 +8,9 @@
     "esModuleInterop": true
   },
   "exclude": [
-    "test"
+    "test",
+    "migrations/",
+    "seeds/",
+    "knexfile.ts"
   ]
 }
