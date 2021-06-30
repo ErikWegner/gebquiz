@@ -2,7 +2,6 @@ import assert from 'assert';
 import app from '../../src/app';
 import { createUser } from './helpers';
 import { expect } from 'chai';
-import { Params } from '@feathersjs/feathers';
 
 describe('\'gameround\' service', () => {
   it('registered the service', () => {
