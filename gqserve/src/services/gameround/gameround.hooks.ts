@@ -11,7 +11,19 @@ const postResolvers = {
     questions: (..._args: any[]) => async (game: GameRoundData, { app }: { app: Application }) => {
       const db: Knex = app.get('knexClient');
       const questions = await (db
-        .select('questions.description')
+        .select({
+          id: 'gamequestions.id',
+          description: 'questions.description',
+          answerA: 'questions.answerA',
+          answerB: 'questions.answerB',
+          answerC: 'questions.answerC',
+          answerD: 'questions.answerD',
+          pointsA: 'questions.pointsA',
+          pointsB: 'questions.pointsB',
+          pointsC: 'questions.pointsC',
+          pointsD: 'questions.pointsD',
+          kind: 'questions.kind',
+        })
         .table('questions')
         .leftJoin('gamequestions', 'questions.id', 'gamequestions.question_id')
         .where('gamequestions.game_id', game.id)

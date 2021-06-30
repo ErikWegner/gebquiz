@@ -1,4 +1,4 @@
-import { Id, NullableId, Paginated, Params } from '@feathersjs/feathers';
+import { Params } from '@feathersjs/feathers';
 import Knex from 'knex';
 import { Application } from '../../declarations';
 import { GameData } from '../game/game.class';
@@ -6,7 +6,7 @@ import { QuestionData } from '../question/question.class';
 
 export interface GameRoundData {
   id: number;
-  questions?: [];
+  questions?: QuestionData[];
 }
 
 interface ServiceOptions { }
