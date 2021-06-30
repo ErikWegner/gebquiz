@@ -1,6 +1,6 @@
 import * as Knex from 'knex';
 
-export const tableName = 'question';
+export const tableName = 'questions';
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema

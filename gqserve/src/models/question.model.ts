@@ -7,7 +7,7 @@ import { Application } from '../declarations';
 
 export default function (app: Application): Knex {
   const db: Knex = app.get('knexClient');
-  const tableName = 'question';
+  const tableName = 'questions';
   db.schema.hasTable(tableName).then(exists => {
     if (!exists) {
       console.error(`Error: table ${tableName} missing`);

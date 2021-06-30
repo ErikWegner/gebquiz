@@ -1,28 +1,26 @@
-// Initializes the `game` service on path `/game`
+// Initializes the `gameround` service on path `/gameround`
 import { ServiceAddons } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
-import { Game, GameData } from './game.class';
-import createModel from '../../models/game.model';
-import hooks from './game.hooks';
+import { Gameround, GameRoundData } from './gameround.class';
+import hooks from './gameround.hooks';
 
 // Add this service to the service type index
 declare module '../../declarations' {
   interface ServiceTypes {
-    'game': Game & ServiceAddons<GameData>;
+    'gameround': Gameround & ServiceAddons<GameRoundData>;
   }
 }
 
 export default function (app: Application): void {
   const options = {
-    Model: createModel(app),
     paginate: app.get('paginate')
   };
 
   // Initialize our service with any options it requires
-  app.use('/game', new Game(options, app));
+  app.use('/gameround', new Gameround(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('game');
+  const service = app.service('gameround');
 
   service.hooks(hooks);
 }

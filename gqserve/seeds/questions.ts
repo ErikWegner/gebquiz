@@ -3,8 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import { v4 as uuidv4 } from 'uuid';
+import { tableName as questionTableName } from '../migrations/20210629222251_questions';
 
-const tableName = 'question';
+const tableName = questionTableName;
 
 interface YamlQuestion {
   uuid?: string;
