@@ -41,4 +41,19 @@ describe('\'answer\' service', () => {
 
     expect(r.code).to.eq(404);
   });
+
+  it('cannot create an answer for a closed game', async () => {
+    const service = app.service('answer');
+    const user = await createUser(app);
+    const gameroundservice = app.service('gameround');
+    const params = { user };
+    const gameround = await gameroundservice.create({}, params);
+    const gameroundData = await gameroundservice.get(gameround.id, params);
+    const q1 = gameroundData.questions[0];
+    await gameroundservice.patch(gameround.id, { action: 'close' }, params);
+
+    const r = await service.create({ id: q1.id, answer: 'A' }, params) as any;
+
+    expect(r.code).to.eq(400);
+  });
 });
