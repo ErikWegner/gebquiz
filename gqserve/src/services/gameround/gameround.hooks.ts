@@ -4,7 +4,6 @@ import { fastJoin } from 'feathers-hooks-common';
 import { GameRoundData } from './gameround.class';
 import Knex from 'knex';
 import user_is_owner from '../../hooks/user_is_owner';
-import { HookContext } from '../../app';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -21,10 +20,6 @@ const postResolvers = {
           answerB: 'questions.answerB',
           answerC: 'questions.answerC',
           answerD: 'questions.answerD',
-          pointsA: 'questions.pointsA',
-          pointsB: 'questions.pointsB',
-          pointsC: 'questions.pointsC',
-          pointsD: 'questions.pointsD',
           kind: 'questions.kind',
         })
         .table('questions')

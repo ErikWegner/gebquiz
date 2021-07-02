@@ -16,7 +16,7 @@ export async function up(knex: Knex): Promise<void> {
       table.integer('pointsB');
       table.integer('pointsC');
       table.integer('pointsD');
-      table.integer('kind').comment('A: A or B, 1:single choice, m:multiple choice');
+      table.integer('kind').comment('A: A or B, c:single choice, m:multiple choice');
     });
 }
 

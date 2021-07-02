@@ -13,7 +13,7 @@ export async function up(knex: Knex): Promise<void> {
       table.foreign('game_id').references('id').inTable(gameTableName).onDelete('RESTRICT');
       table.integer('question_id').unsigned().notNullable().comment('Question');
       table.foreign('question_id').references('id').inTable(questionTableName).onDelete('RESTRICT');
-      table.jsonb('answer').defaultTo('{}');
+      table.json('answer').defaultTo('{}');
     });
 }
 

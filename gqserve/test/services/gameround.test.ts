@@ -36,8 +36,10 @@ describe('\'gameround\' service', () => {
       expect(gameroundData.questions[index]).to.have.property('description');
       expect(gameroundData.questions[index]).to.have.property('answerA');
       expect(gameroundData.questions[index]).to.have.property('answerB');
-      expect(gameroundData.questions[index]).to.have.property('pointsA');
-      expect(gameroundData.questions[index]).to.have.property('pointsB');
+      expect(gameroundData.questions[index]).to.not.have.property('pointsA');
+      expect(gameroundData.questions[index]).to.not.have.property('pointsB');
+      expect(gameroundData.questions[index]).to.not.have.property('pointsC');
+      expect(gameroundData.questions[index]).to.not.have.property('pointsD');
       expect(gameroundData.questions[index]).to.have.property('kind');
     }
   });
@@ -53,6 +55,21 @@ describe('\'gameround\' service', () => {
     expect(gameroundClosedData.id).to.eq(gameround.id);
   });
 
+  it('cannot close a game twice', async () => {
+    const user = await createUser(app);
+    const service = app.service('gameround');
+    const params = { user };
+    const gameround = await service.create({}, params);
+    await service.patch(gameround.id, { action: 'close' }, params);
+
+    try {
+      await service.patch(gameround.id, { action: 'close' }, params) as any;
+      assert.fail('Exception not thrown');
+    } catch (error) {
+      expect(error.code).to.eq(400);
+    }
+  });
+
   it('cannot close another user´s game', async () => {
     const user1 = await createUser(app);
     const user2 = await createUser(app);
@@ -63,5 +80,52 @@ describe('\'gameround\' service', () => {
     const r = await service.patch(gameround.id, { action: 'close' }, { user: user2 }) as any;
 
     expect(r.code).to.eq(404);
+  });
+
+  it('has no score on running game', async () => {
+    const user = await createUser(app);
+    const service = app.service('gameround');
+    const params = { user };
+    const gameround = await service.create({}, params);
+
+    const gameroundData = await service.get(gameround.id, params);
+
+    expect(gameroundData).to.not.have.property('score');
+  });
+
+  it('has score on completed game', async () => {
+    const user = await createUser(app);
+    const gameroundService = app.service('gameround');
+    const answerService = app.service('answer');
+    const params = { user };
+    const gameround = await gameroundService.create({}, params);
+    const gameroundData = await gameroundService.get(gameround.id, params);
+    const l = 3;
+    for (let index = 0; index < l; index++) {
+      const q = gameroundData.questions[index];
+      let answer = '';
+      if (q.description.startsWith('You')) {
+        // pill question
+        answer = Math.random() < 0.5 ? 'A' : 'B';
+      }
+      if (q.description.startsWith('Which')) {
+        // language question
+        answer = 'BCD';
+      }
+      if (q.description.startsWith('How')) {
+        // jackets question
+        answer = 'B';
+      }
+      await answerService.create({ id: q.id, answer }, params);
+    }
+
+    const gameroundClosedData = await gameroundService.patch(gameround.id, { action: 'close' }, params);
+
+    const gameroundDataCompleted = await gameroundService.get(gameround.id, params);
+
+    expect(gameroundClosedData).to.have.property('score');
+    expect(gameroundClosedData.score).to.eq(5);
+    expect(gameroundDataCompleted).to.have.property('score');
+    expect(gameroundDataCompleted.score).to.eq(5);
   });
 });
