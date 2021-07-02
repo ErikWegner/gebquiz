@@ -1,7 +1,11 @@
 import assert from 'assert';
 import app from '../../src/app';
 import { createUser } from './helpers';
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import spies from 'chai-spies';
+import { gameFinishedEventName } from '../../src/services/gameround/gameround.class';
+
+chai.use(spies);
 
 describe('\'gameround\' service', () => {
   it('registered the service', () => {
@@ -53,6 +57,21 @@ describe('\'gameround\' service', () => {
     const gameroundClosedData = await service.patch(gameround.id, { action: 'close' }, params);
 
     expect(gameroundClosedData.id).to.eq(gameround.id);
+  });
+
+  it('emits on closing a game round', async () => {
+    const user = await createUser(app);
+    const service = app.service('gameround');
+    const params = { user };
+    const gameround = await service.create({}, params);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const eventReceiver = () => { };
+    const spy = chai.spy(eventReceiver);
+    service.on(gameFinishedEventName, spy);
+
+    await service.patch(gameround.id, { action: 'close' }, params);
+
+    expect(spy).to.have.been.called();
   });
 
   it('cannot close a game twice', async () => {

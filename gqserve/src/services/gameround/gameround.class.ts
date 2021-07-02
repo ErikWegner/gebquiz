@@ -1,4 +1,5 @@
 import { BadRequest } from '@feathersjs/errors';
+import { EventEmitter } from 'events';
 import { Params } from '@feathersjs/feathers';
 import Knex from 'knex';
 import { Application } from '../../declarations';
@@ -45,8 +46,10 @@ interface ReviewItem {
   answer: string;
   kind: string;
 }
+export const gameFinishedEventName = 'game-finished';
 
 export class Gameround {
+  events = [gameFinishedEventName];
   app: Application;
   options: ServiceOptions;
 
@@ -94,6 +97,7 @@ export class Gameround {
       const score = await this.calculateScore({ game, gameservice });
       game.score = score;
       await gameservice.update(id, game);
+      (this as unknown as EventEmitter).emit(gameFinishedEventName);
       return { id, score };
     }
 
