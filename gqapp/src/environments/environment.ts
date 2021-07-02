@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apptitle: 'Quiz game',
+  welcometext: 'Answer some questions and earn points. Try to score as much as possible and claim your place in the high score.',
   production: false
 };
 
