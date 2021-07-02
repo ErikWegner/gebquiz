@@ -1,8 +1,13 @@
+import { BadRequest } from '@feathersjs/errors';
 import { Params } from '@feathersjs/feathers';
 import Knex from 'knex';
 import { Application } from '../../declarations';
 import { GameData } from '../game/game.class';
 import { QuestionData } from '../question/question.class';
+
+export interface GameRoundPatchData {
+  action: string;
+}
 
 export interface GameRoundData {
   id: number;
@@ -58,9 +63,17 @@ export class Gameround {
     return { id: newround.id || 0 };
   }
 
-  // // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // async update (id: NullableId, data: Data, params?: Params): Promise<Data> {
-  //   return data;
-  // }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async patch(id: number, data: GameRoundPatchData, params?: Params): Promise<GameRoundData> {
+    if (data.action === 'close') {
+      const gameservice = this.app.service('game');
+      const game = await gameservice.get(id);
+      game.end = new Date();
+      await gameservice.update(id, game);
+      return { id };
+    }
+
+    throw new BadRequest('Invalid action');
+  }
 
 }

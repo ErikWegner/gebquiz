@@ -1,11 +1,14 @@
 import * as authentication from '@feathersjs/authentication';
 import { Application } from '../../declarations';
-import { fastJoin, ResolverMap } from 'feathers-hooks-common';
+import { fastJoin } from 'feathers-hooks-common';
 import { GameRoundData } from './gameround.class';
 import Knex from 'knex';
+import user_is_owner from '../../hooks/user_is_owner';
+import { HookContext } from '../../app';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
+
 const postResolvers = {
   joins: {
     questions: (..._args: any[]) => async (game: GameRoundData, { app }: { app: Application }) => {
@@ -40,7 +43,7 @@ export default {
     get: [],
     create: [],
     update: [],
-    patch: [],
+    patch: [user_is_owner({ rel: 'game' })],
     remove: []
   },
 

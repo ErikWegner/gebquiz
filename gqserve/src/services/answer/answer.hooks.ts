@@ -9,7 +9,7 @@ export default {
     all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [user_is_owner()],
+    create: [user_is_owner({ rel: 'gamequestions' })],
     update: [],
     patch: [],
     remove: []

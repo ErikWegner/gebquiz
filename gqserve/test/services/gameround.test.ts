@@ -41,4 +41,27 @@ describe('\'gameround\' service', () => {
       expect(gameroundData.questions[index]).to.have.property('kind');
     }
   });
+
+  it('can close a game round', async () => {
+    const user = await createUser(app);
+    const service = app.service('gameround');
+    const params = { user };
+    const gameround = await service.create({}, params);
+
+    const gameroundClosedData = await service.patch(gameround.id, { action: 'close' }, params);
+
+    expect(gameroundClosedData.id).to.eq(gameround.id);
+  });
+
+  it('cannot close another user´s game', async () => {
+    const user1 = await createUser(app);
+    const user2 = await createUser(app);
+    const service = app.service('gameround');
+    const params = { user: user1 };
+    const gameround = await service.create({}, params);
+
+    const r = await service.patch(gameround.id, { action: 'close' }, { user: user2 }) as any;
+
+    expect(r.code).to.eq(404);
+  });
 });
