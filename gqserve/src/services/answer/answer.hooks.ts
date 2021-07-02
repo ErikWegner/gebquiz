@@ -1,13 +1,13 @@
 import * as authentication from '@feathersjs/authentication';
 import { BadRequest } from '@feathersjs/errors';
+import { Hook, HookContext } from '@feathersjs/feathers';
 import Knex from 'knex';
-import { HookContext } from '../../app';
 import user_is_owner from '../../hooks/user_is_owner';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 
-const game_is_active = (options = {}) => {
+const game_is_active = (): Hook => {
   return async (context: HookContext): Promise<HookContext> => {
     const db: Knex = context.app.get('knexClient');
 
