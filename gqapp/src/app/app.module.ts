@@ -7,13 +7,15 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { UsernameComponent } from './pages/username/username.component';
 import { FormsModule } from '@angular/forms';
+import { QuizComponent } from './pages/quiz/quiz.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     Error404Component,
-    UsernameComponent
+    UsernameComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,

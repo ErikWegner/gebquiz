@@ -22,4 +22,8 @@ export class GameService {
         .finally(() => observer.complete());
     });
   }
+
+  public getQuestion(gameid: number, question: number): Observable<any> {
+    return of();
+  }
 }
