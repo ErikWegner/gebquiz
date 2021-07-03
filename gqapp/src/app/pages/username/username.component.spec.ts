@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { FeathersBridgeService } from 'src/app/service/feathers-bridge.service';
 import { GameService } from 'src/app/service/game.service';
@@ -97,6 +97,31 @@ describe('UsernameComponent', () => {
     expect(fspy.login).toHaveBeenCalledWith(username);
     expect(gspy.startGame).toHaveBeenCalled();
     expect(rSpy.navigate).toHaveBeenCalledWith(['/quiz', gameid]);
+  }));
+
+  it('should show error from game start', fakeAsync(() => {
+    // Arrange
+    const rSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    fixture.detectChanges();
+    const username = randomString(20, 'user-');
+    const gameid = randomNumber(9000, 1000);
+    const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+    input.value = username;
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    const button = fixture.debugElement.query(By.css('button'));
+    fspy.login.and.callFake(() => of(true).pipe(delay(10)).toPromise());
+    gspy.startGame.and.returnValue(new Observable(observer => observer.error('Could not start game.')));
+
+    // Act
+    button.triggerEventHandler('click', null);
+    tick(20);
+    fixture.detectChanges();
+
+    // Assert
+    const el = fixture.nativeElement as HTMLElement;
+    const eel = el.querySelector('.error') as HTMLDivElement;
+    expect(eel.textContent).toEqual('Could not start game.');
   }));
 });
 

@@ -11,6 +11,7 @@ import { LocalStorageService } from 'src/app/service/local-storage.service';
 })
 export class UsernameComponent implements OnInit {
   username = '';
+  errormessage = '';
 
   constructor(
     private ls: LocalStorageService,
@@ -28,6 +29,8 @@ export class UsernameComponent implements OnInit {
     await this.f.login(this.username);
     this.g.startGame().subscribe(gamedata => {
       this.r.navigate(['/quiz', gamedata.gameid]);
+    }, err => {
+      this.errormessage = err;
     });
   }
 }
