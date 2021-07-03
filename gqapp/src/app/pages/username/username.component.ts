@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
 
 @Component({
   selector: 'app-username',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./username.component.scss']
 })
 export class UsernameComponent implements OnInit {
+  username = '';
 
-  constructor() { }
+  constructor(
+    private ls: LocalStorageService,
+  ) { }
 
   ngOnInit(): void {
+    this.username = this.ls.getUsername();
   }
 
 }
