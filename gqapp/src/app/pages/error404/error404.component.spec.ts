@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { RouterLinkStubDirective } from 'testing/routerlink-stub.directive';
 
 import { Error404Component } from './error404.component';
 
@@ -9,12 +9,8 @@ describe('Error404Component', () => {
   let fixture: ComponentFixture<Error404Component>;
 
   beforeEach(async () => {
-    const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
     await TestBed.configureTestingModule({
-      declarations: [Error404Component],
-      providers: [
-        { provide: Router, useValue: routerSpy }
-      ]
+      declarations: [Error404Component, RouterLinkStubDirective],
     })
     .compileComponents();
   });
@@ -30,11 +26,11 @@ describe('Error404Component', () => {
   });
 
   it('should navigate to root on click', () => {
-    const button = fixture.debugElement.query(By.css('button'));
+    const button = fixture.debugElement.query(By.css('a'));
+    const dir = button.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective;
 
     button.triggerEventHandler('click', null);
 
-    const spy = TestBed.inject(Router).navigateByUrl as jasmine.Spy;
-    expect(spy).toHaveBeenCalledOnceWith('/');
+    expect(dir.navigatedTo).toEqual('/');
   });
 });

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FeathersBridgeService } from 'src/app/service/feathers-bridge.service';
 import { LocalStorageService } from 'src/app/service/local-storage.service';
 
 @Component({
@@ -11,10 +12,15 @@ export class UsernameComponent implements OnInit {
 
   constructor(
     private ls: LocalStorageService,
+    private f: FeathersBridgeService,
   ) { }
 
   ngOnInit(): void {
     this.username = this.ls.getUsername();
   }
 
+  async login(): Promise<void> {
+    this.ls.saveUsername(this.username);
+    await this.f.login(this.username);
+  }
 }

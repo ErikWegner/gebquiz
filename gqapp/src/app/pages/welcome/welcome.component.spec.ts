@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { RouterLinkStubDirective } from 'testing/routerlink-stub.directive';
 
 import { WelcomeComponent } from './welcome.component';
