@@ -1,11 +1,10 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { GameService } from 'src/app/service/game.service';
+import { GameService, QuestionData } from 'src/app/service/game.service';
 import { ActivatedRouteStub } from 'testing/activated-route-stub';
-import { randomNumber } from 'testing/utils';
+import { randomNumber, randomString } from 'testing/utils';
 
 import { QuizComponent } from './quiz.component';
 
@@ -15,6 +14,14 @@ describe('QuizComponent', () => {
   let activatedRouteStub: ActivatedRouteStub;
   let gspy: jasmine.SpyObj<GameService>;
   let rspy: jasmine.SpyObj<Router>;
+
+  const getQuestionResponse = (): QuestionData => ({
+    meta: {
+      nextQuestionNumber: 0,
+      prevQuestionNumber: 0,
+    },
+    description: '',
+  });
 
   beforeEach(async () => {
     const activatedRoute = new ActivatedRouteStub();
@@ -52,7 +59,8 @@ describe('QuizComponent', () => {
     // Arrange
     const id = randomNumber(900, 100);
     activatedRouteStub.setParamMap({ id });
-    gspy.getQuestion.and.callFake(() => of({ meta: { nextQuestionNumber: 0, prevQuestionNumber: 0 } }));
+    const gqr = getQuestionResponse();
+    gspy.getQuestion.and.callFake(() => of(gqr));
 
     // Act
     fixture.detectChanges();
@@ -65,7 +73,10 @@ describe('QuizComponent', () => {
     // Arrange
     const id = randomNumber(900, 100);
     activatedRouteStub.setParamMap({ id });
-    gspy.getQuestion.and.callFake(() => of({ meta: { nextQuestionNumber: 1, prevQuestionNumber: 8 } }));
+    const gqr = getQuestionResponse();
+    gqr.meta.nextQuestionNumber = 1;
+    gqr.meta.prevQuestionNumber = 8;
+    gspy.getQuestion.and.callFake(() => of(gqr));
     fixture.detectChanges();
     const button = fixture.debugElement.queryAll(By.css('button.btn-outline-primary'))[1];
 
@@ -81,7 +92,10 @@ describe('QuizComponent', () => {
     // Arrange
     const id = randomNumber(900, 100);
     activatedRouteStub.setParamMap({ id });
-    gspy.getQuestion.and.callFake(() => of({ meta: { nextQuestionNumber: 1, prevQuestionNumber: 17 } }));
+    const gqr = getQuestionResponse();
+    gqr.meta.nextQuestionNumber = 1;
+    gqr.meta.prevQuestionNumber = 17;
+    gspy.getQuestion.and.callFake(() => of(gqr));
     fixture.detectChanges();
     const button = fixture.debugElement.queryAll(By.css('button.btn-outline-primary'))[0];
 
@@ -97,7 +111,10 @@ describe('QuizComponent', () => {
     // Arrange
     const id = randomNumber(900, 100);
     activatedRouteStub.setParamMap({ id });
-    gspy.getQuestion.and.callFake(() => of({ meta: { nextQuestionNumber: 1, prevQuestionNumber: 1 } }));
+    const gqr = getQuestionResponse();
+    gqr.meta.nextQuestionNumber = 1;
+    gqr.meta.prevQuestionNumber = 1;
+    gspy.getQuestion.and.callFake(() => of(gqr));
     fixture.detectChanges();
 
     // Act
@@ -110,4 +127,21 @@ describe('QuizComponent', () => {
       [id, 1],
     ]);
   }));
+
+  it('should show the description', () => {
+    // Arrange
+    const id = randomNumber(900, 100);
+    const desc = randomString(40, 'question-');
+    activatedRouteStub.setParamMap({ id });
+    const gqr = getQuestionResponse();
+    gqr.description = desc;
+    gspy.getQuestion.and.callFake(() => of(gqr));
+
+    // Act
+    fixture.detectChanges();
+
+    // Assert
+    const pel = fixture.nativeElement.querySelector('p');
+    expect(pel.textContent).toEqual(desc);
+  });
 });

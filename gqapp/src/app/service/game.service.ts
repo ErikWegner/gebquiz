@@ -6,11 +6,12 @@ interface CreateGameData {
   id: number;
 }
 
-interface QuestionData {
+export interface QuestionData {
   meta: {
     nextQuestionNumber: number;
     prevQuestionNumber: number;
   }
+  description: string;
 }
 
 @Injectable({
@@ -35,7 +36,8 @@ export class GameService {
       meta: {
         nextQuestionNumber: 0,
         prevQuestionNumber: 0,
-      }
+      },
+      description: '',
     });
   }
 }

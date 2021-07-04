@@ -14,6 +14,7 @@ export class QuizComponent implements OnInit {
   questionNumber = 0;
   nextQuestionNumber = 0;
   prevQuestionNumber = 0;
+  description = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,7 @@ export class QuizComponent implements OnInit {
       this.questionNumber = gd.question;
       this.nextQuestionNumber = gd.q.meta.nextQuestionNumber;
       this.prevQuestionNumber = gd.q.meta.prevQuestionNumber;
+      this.description = gd.q.description;
     });
   }
 
