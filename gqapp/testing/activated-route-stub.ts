@@ -11,7 +11,9 @@ export class ActivatedRouteStub {
   private subject = new ReplaySubject<ParamMap>(1);
 
   constructor(initialParams?: Params) {
-    this.setParamMap(initialParams);
+    if (initialParams) {
+      this.setParamMap(initialParams);
+    }
   }
 
   /** The mock paramMap observable */

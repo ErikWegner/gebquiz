@@ -6,6 +6,13 @@ interface CreateGameData {
   id: number;
 }
 
+interface QuestionData {
+  meta: {
+    nextQuestionNumber: number;
+    prevQuestionNumber: number;
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +30,12 @@ export class GameService {
     });
   }
 
-  public getQuestion(gameid: number, question: number): Observable<any> {
-    return of();
+  public getQuestion(gameid: number, question: number): Observable<QuestionData> {
+    return of({
+      meta: {
+        nextQuestionNumber: 0,
+        prevQuestionNumber: 0,
+      }
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { GameService } from 'src/app/service/game.service';
 
@@ -11,22 +11,41 @@ import { GameService } from 'src/app/service/game.service';
 export class QuizComponent implements OnInit {
 
   gameid = 0;
-  question = 0;
+  questionNumber = 0;
+  nextQuestionNumber = 0;
+  prevQuestionNumber = 0;
 
   constructor(
     private route: ActivatedRoute,
     private g: GameService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
       map(d => {
         const gameid = parseInt(d.get('id') || '0', 10);
-        const question = d.has('q') ? parseInt(d.get('d') || '0') : 0;
+        const question = d.has('q') ? parseInt(d.get('q') || '0') : 0;
         return { gameid, question };
       }),
-      switchMap(d => this.g.getQuestion(d.gameid, d.question))
-    ).subscribe();
+      switchMap(d => this.g
+        .getQuestion(d.gameid, d.question)
+        .pipe(
+          map(q => ({ ...d, q }))
+        ))
+    ).subscribe(gd => {
+      this.gameid = gd.gameid;
+      this.questionNumber = gd.question;
+      this.nextQuestionNumber = gd.q.meta.nextQuestionNumber;
+      this.prevQuestionNumber = gd.q.meta.prevQuestionNumber;
+    });
   }
 
+  next(): void {
+    this.router.navigate(['quiz', this.gameid, { q: this.nextQuestionNumber }]);
+  }
+
+  prev(): void {
+    this.router.navigate(['quiz', this.gameid, { q: this.prevQuestionNumber }]);
+  }
 }
