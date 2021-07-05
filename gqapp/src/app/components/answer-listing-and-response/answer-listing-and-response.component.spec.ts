@@ -1,14 +1,8 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { AnswerOptionComponent } from '../answer-option/answer-option.component';
 
 import { AnswerListingAndResponseComponent } from './answer-listing-and-response.component';
-
-@Component({
-  selector: 'app-answer-option',
-  template: '',
-})
-export class AnswerOptionStubComponent { }
 
 describe('AnswerListingAndResponseComponent', () => {
   let component: AnswerListingAndResponseComponent;
@@ -18,7 +12,7 @@ describe('AnswerListingAndResponseComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         AnswerListingAndResponseComponent,
-        AnswerOptionStubComponent,
+        AnswerOptionComponent,
       ]
     })
       .compileComponents();
@@ -42,7 +36,7 @@ describe('AnswerListingAndResponseComponent', () => {
 
     // Assert
     const el = fixture.nativeElement as HTMLElement;
-    expect(fixture.debugElement.queryAll(By.directive(AnswerOptionStubComponent)).length).toEqual(2);
+    expect(fixture.debugElement.queryAll(By.directive(AnswerOptionComponent)).length).toEqual(2);
   });
 
   it('should show 4 answers when kind is multiple choice', () => {
@@ -53,7 +47,7 @@ describe('AnswerListingAndResponseComponent', () => {
 
     // Assert
     const el = fixture.nativeElement as HTMLElement;
-    expect(fixture.debugElement.queryAll(By.directive(AnswerOptionStubComponent)).length).toEqual(4);
+    expect(fixture.debugElement.queryAll(By.directive(AnswerOptionComponent)).length).toEqual(4);
   });
 
   it('should show 4 answers when kind is single choice', () => {
@@ -64,6 +58,6 @@ describe('AnswerListingAndResponseComponent', () => {
 
     // Assert
     const el = fixture.nativeElement as HTMLElement;
-    expect(fixture.debugElement.queryAll(By.directive(AnswerOptionStubComponent)).length).toEqual(4);
+    expect(fixture.debugElement.queryAll(By.directive(AnswerOptionComponent)).length).toEqual(4);
   });
 });
