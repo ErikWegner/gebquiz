@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +8,12 @@ import { ActivatedRouteStub } from 'testing/activated-route-stub';
 import { randomNumber, randomString } from 'testing/utils';
 
 import { QuizComponent } from './quiz.component';
+
+@Component({
+  selector: 'app-answer-listing-and-response',
+  template: '',
+})
+export class AnswerListingAndResponseStubComponent { }
 
 describe('QuizComponent', () => {
   let component: QuizComponent;
@@ -32,12 +39,15 @@ describe('QuizComponent', () => {
       'navigate',
     ]);
     await TestBed.configureTestingModule({
-      declarations: [QuizComponent],
+      declarations: [
+        QuizComponent,
+        AnswerListingAndResponseStubComponent,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: GameService, useValue: g },
         { provide: Router, useValue: r },
-      ]
+      ],
     })
       .compileComponents();
     activatedRouteStub = TestBed.inject(ActivatedRoute) as any as ActivatedRouteStub;

@@ -8,6 +8,8 @@ import { Error404Component } from './pages/error404/error404.component';
 import { UsernameComponent } from './pages/username/username.component';
 import { FormsModule } from '@angular/forms';
 import { QuizComponent } from './pages/quiz/quiz.component';
+import { AnswerListingAndResponseComponent } from './components/answer-listing-and-response/answer-listing-and-response.component';
+import { AnswerOptionComponent } from './components/answer-option/answer-option.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { QuizComponent } from './pages/quiz/quiz.component';
     WelcomeComponent,
     Error404Component,
     UsernameComponent,
-    QuizComponent
+    QuizComponent,
+    AnswerListingAndResponseComponent,
+    AnswerOptionComponent
   ],
   imports: [
     BrowserModule,
