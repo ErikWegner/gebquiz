@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AnswerKind } from 'src/app/answer-kind';
 
 @Component({
   selector: 'app-answer-listing-and-response',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./answer-listing-and-response.component.scss']
 })
 export class AnswerListingAndResponseComponent implements OnInit {
+
+  @Input()
+  public kind: AnswerKind | '' = '';
 
   constructor() { }
 

@@ -30,6 +30,7 @@ describe('AnswerListingAndResponseComponent', () => {
 
   it('should show 2 answers', () => {
     // Arrange
+    fixture.componentInstance.kind = 'A';
 
     // Act
     fixture.detectChanges();
@@ -41,6 +42,7 @@ describe('AnswerListingAndResponseComponent', () => {
 
   it('should show 4 answers when kind is multiple choice', () => {
     // Arrange
+    fixture.componentInstance.kind = 'm';
 
     // Act
     fixture.detectChanges();
@@ -52,6 +54,7 @@ describe('AnswerListingAndResponseComponent', () => {
 
   it('should show 4 answers when kind is single choice', () => {
     // Arrange
+    fixture.componentInstance.kind = 'c';
 
     // Act
     fixture.detectChanges();
