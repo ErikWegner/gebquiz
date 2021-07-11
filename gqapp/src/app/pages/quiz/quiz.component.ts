@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { AnswerKind } from 'src/app/answer-kind';
 import { GameService } from 'src/app/service/game.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class QuizComponent implements OnInit {
   nextQuestionNumber = 0;
   prevQuestionNumber = 0;
   description = '';
+  answerData: { answerA: string; answerB: string; answerC: string; answerD: string; kind: AnswerKind; } | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +42,7 @@ export class QuizComponent implements OnInit {
       this.nextQuestionNumber = gd.q.meta.nextQuestionNumber;
       this.prevQuestionNumber = gd.q.meta.prevQuestionNumber;
       this.description = gd.q.description;
+      this.answerData = gd.q.answerData;
     });
   }
 

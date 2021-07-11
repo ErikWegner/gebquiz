@@ -2,10 +2,12 @@
   <h1>Question</h1>
 </div>
 <div class="row">
-  <p>{{ description }}</p>
+  <p class="display-3">{{ description }}</p>
 </div>
 <div class="row">
-  <app-answer-listing-and-response></app-answer-listing-and-response>
+  <app-answer-listing-and-response [kind]="answerData?.kind || ''" [answerA]="answerData?.answerA ?? ''"
+    [answerB]="answerData?.answerB ?? ''" [answerC]="answerData?.answerC ?? ''" [answerD]="answerData?.answerD ?? ''">
+  </app-answer-listing-and-response>
   </div>
   <div class="row">
   <div class="row justify-content-evenly">

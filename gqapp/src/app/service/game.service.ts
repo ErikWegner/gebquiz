@@ -28,6 +28,13 @@ export interface QuestionData {
     prevQuestionNumber: number;
   }
   description: string;
+  answerData?: {
+    answerA: string;
+    answerB: string;
+    answerC: string;
+    answerD: string;
+    kind: AnswerKind;
+  }
 }
 
 @Injectable({
@@ -60,10 +67,17 @@ export class GameService {
           const prevQuestionNumber = (question + len - 1) % len;
 
           return {
-            ...questionData,
+            description: questionData.description,
             meta: {
               nextQuestionNumber, prevQuestionNumber,
             },
+            answerData: {
+              answerA: questionData.answerA,
+              answerB: questionData.answerB,
+              answerC: questionData.answerC,
+              answerD: questionData.answerD,
+              kind: questionData.kind,
+            }
           }
         }),
       )

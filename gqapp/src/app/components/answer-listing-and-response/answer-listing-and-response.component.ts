@@ -11,6 +11,18 @@ export class AnswerListingAndResponseComponent implements OnInit {
   @Input()
   public kind: AnswerKind | '' = '';
 
+  @Input()
+  public answerA = '';
+
+  @Input()
+  public answerB = '';
+
+  @Input()
+  public answerC = '';
+
+  @Input()
+  public answerD = '';
+
   constructor() { }
 
   ngOnInit(): void {

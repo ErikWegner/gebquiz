@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-answer-option',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./answer-option.component.scss']
 })
 export class AnswerOptionComponent implements OnInit {
+
+  @Input()
+  public answer = '';
 
   constructor() { }
 
