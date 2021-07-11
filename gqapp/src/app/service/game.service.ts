@@ -1,9 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { EMPTY, from, Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AnswerKind } from '../answer-kind';
 import { FeathersBridgeService } from './feathers-bridge.service';
 
 interface CreateGameData {
   id: number;
+}
+
+interface Question {
+  id: number;
+  description: string;
+  kind: AnswerKind;
+  answerA: string;
+  answerB: string;
+  answerC: string;
+  answerD: string;
+}
+
+interface GameRoundData {
+  questions?: Question[];
 }
 
 export interface QuestionData {
@@ -32,12 +48,25 @@ export class GameService {
   }
 
   public getQuestion(gameid: number, question: number): Observable<QuestionData> {
-    return of({
-      meta: {
-        nextQuestionNumber: 0,
-        prevQuestionNumber: 0,
-      },
-      description: '',
-    });
+    return from(this.fbs.gameroundService.get(gameid))
+      .pipe(
+        map((grd: GameRoundData): QuestionData => {
+          const len = grd.questions?.length || 0;
+          if (!grd.questions || len === 0) {
+            return { meta: { nextQuestionNumber: 0, prevQuestionNumber: 0 }, description: 'ERROR: Empty game' };
+          }
+          const questionData = grd.questions[question < len ? question : 0];
+          const nextQuestionNumber = (question + 1) % len;
+          const prevQuestionNumber = (question + len - 1) % len;
+
+          return {
+            ...questionData,
+            meta: {
+              nextQuestionNumber, prevQuestionNumber,
+            },
+          }
+        }),
+      )
+
   }
 }
