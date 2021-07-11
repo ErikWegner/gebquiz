@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { answerClicked } from 'src/app/actions/quiz.action';
+import { answerClicked } from 'src/app/state/quiz.action';
 import { answerSaving } from 'src/app/selectors/answer-saving.selector';
 import { AppState } from 'src/app/state/app.state';
 

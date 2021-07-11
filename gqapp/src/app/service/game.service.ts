@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { questionLoaded } from '../actions/quiz.action';
+import { questionLoaded } from '../state/quiz.action';
 import { AnswerKind } from '../answer-kind';
 import { AppState } from '../state/app.state';
 import { FeathersBridgeService } from './feathers-bridge.service';

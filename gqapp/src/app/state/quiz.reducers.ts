@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { answerClicked, questionLoaded } from '../actions/quiz.action';
-import { QuizState } from '../state/quiz.state';
+import { answerClicked, questionLoaded } from './quiz.action';
+import { QuizState } from './quiz.state';
 
 export const initialState: QuizState = {
   gameid: 0,

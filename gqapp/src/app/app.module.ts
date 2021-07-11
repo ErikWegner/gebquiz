@@ -13,7 +13,7 @@ import { AnswerOptionComponent } from './components/answer-option/answer-option.
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import * as QuizReducer from './reducers/quiz.reducers';
+import * as QuizReducer from './state/quiz.reducers';
 
 @NgModule({
   declarations: [
