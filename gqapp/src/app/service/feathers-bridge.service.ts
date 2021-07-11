@@ -7,6 +7,12 @@ import feathersAuthClient from '@feathersjs/authentication-client';
   providedIn: 'root'
 })
 export class FeathersBridgeService {
+
+  private _loggedIn: boolean;
+  public get loggedIn(): boolean {
+    return this._loggedIn;
+  }
+
   private feathers = feathers();
   private feathersAuthClient = feathersAuthClient({
     storage: window.localStorage
@@ -14,6 +20,7 @@ export class FeathersBridgeService {
   gameroundService: Service<any>;
 
   constructor() {
+    this._loggedIn = false;
     const restClient = rest();
     this.feathers
       .configure(restClient.fetch(window.fetch))
@@ -26,6 +33,21 @@ export class FeathersBridgeService {
       "strategy": "local",
       "name": username
     });
+    this._loggedIn = true;
     return true;
+  }
+
+  public async reauthenticate(): Promise<boolean> {
+    if (this._loggedIn) {
+      return true;
+    }
+
+    try {
+      await this.feathers.reAuthenticate();
+      return true;
+    } catch {
+
+    }
+    return false;
   }
 }
