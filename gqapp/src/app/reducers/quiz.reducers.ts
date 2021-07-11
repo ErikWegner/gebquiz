@@ -1,23 +1,24 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as QuizActions from '../actions/quiz.action';
-
-export interface QuizState {
-  quiz: {
-    gameid: number;
-    questionid: number;
-  }
-};
+import { answerClicked, questionLoaded } from '../actions/quiz.action';
+import { QuizState } from '../state/quiz.state';
 
 export const initialState: QuizState = {
-  quiz: {
-    gameid: 0,
-    questionid: 0,
-  },
+  gameid: 0,
+  questionid: 0,
+  answerSaving: false,
 };
 
 const quizReducer = createReducer(
   initialState,
-  on(QuizActions.questionLoaded, (state, question) => ({ ...state, quiz: { gameid: question.gameid, questionid: question.questionId } })),
+  on(questionLoaded, (state, question) => ({
+    gameid: question.gameid,
+    questionid: question.questionId,
+    answerSaving: false,
+  })),
+  on(answerClicked, (state, clickData) => ({
+    ...state,
+    answerSaving: true,
+  })),
 );
 
 export function reducer(state: QuizState | undefined, action: Action) {

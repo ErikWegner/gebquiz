@@ -5,7 +5,7 @@ export const questionLoaded = createAction(
   props<{ gameid: number, questionId: number }>()
 );
 
-export const answerSelected = createAction(
+export const answerClicked = createAction(
   '[Quiz] answer clicked',
   props<{ answer: 'A' | 'B' | 'C' | 'D' }>()
 );

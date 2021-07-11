@@ -1,3 +1,5 @@
-<div class="border m-1 p-3 display-3" (click)="click()">
-  {{answerText}}
+<div class="border m-1 p-3 display-3">
+  <button (click)="click()" [disabled]="(answerSaving$ | async)">
+    {{answerText}}
+  </button>
 </div>

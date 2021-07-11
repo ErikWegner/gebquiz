@@ -4,7 +4,7 @@ import { from, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { questionLoaded } from '../actions/quiz.action';
 import { AnswerKind } from '../answer-kind';
-import { QuizState } from '../reducers/quiz.reducers';
+import { AppState } from '../state/app.state';
 import { FeathersBridgeService } from './feathers-bridge.service';
 
 interface CreateGameData {
@@ -47,7 +47,7 @@ export class GameService {
 
   constructor(
     private fbs: FeathersBridgeService,
-    private store: Store<QuizState>,
+    private store: Store<AppState>,
   ) { }
 
   public startGame(): Observable<{ gameid: number }> {

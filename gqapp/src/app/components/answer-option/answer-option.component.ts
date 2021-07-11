@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { answerSelected } from 'src/app/actions/quiz.action';
-import { QuizState } from 'src/app/reducers/quiz.reducers';
+import { select, Store } from '@ngrx/store';
+import { answerClicked } from 'src/app/actions/quiz.action';
+import { answerSaving } from 'src/app/selectors/answer-saving.selector';
+import { AppState } from 'src/app/state/app.state';
 
 @Component({
   selector: 'app-answer-option',
@@ -15,8 +16,10 @@ export class AnswerOptionComponent implements OnInit {
   @Input()
   public answerText = '';
 
+  answerSaving$ = this.store.pipe(select(answerSaving));
+
   constructor(
-    private store: Store<QuizState>
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +32,7 @@ export class AnswerOptionComponent implements OnInit {
       this.answerLetter === 'C' ||
       this.answerLetter === 'D'
     ) {
-      this.store.dispatch(answerSelected({ answer: this.answerLetter }));
+      this.store.dispatch(answerClicked({ answer: this.answerLetter }));
     }
   }
 }
