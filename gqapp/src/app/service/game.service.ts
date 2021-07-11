@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, from, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { from, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { questionLoaded } from '../actions/quiz.action';
 import { AnswerKind } from '../answer-kind';
+import { QuizState } from '../reducers/quiz.reducers';
 import { FeathersBridgeService } from './feathers-bridge.service';
 
 interface CreateGameData {
@@ -42,7 +45,10 @@ export interface QuestionData {
 })
 export class GameService {
 
-  constructor(private fbs: FeathersBridgeService) { }
+  constructor(
+    private fbs: FeathersBridgeService,
+    private store: Store<QuizState>,
+  ) { }
 
   public startGame(): Observable<{ gameid: number }> {
     return new Observable(observer => {
@@ -80,6 +86,7 @@ export class GameService {
             }
           }
         }),
+        tap(_ => { this.store.dispatch(questionLoaded({ gameid, questionId: question })) }),
       )
 
   }

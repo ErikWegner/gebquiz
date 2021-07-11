@@ -1,16 +1,16 @@
 <ng-container *ngIf="kind">
   <div class="row row-cols-2">
     <div class="col">
-      <app-answer-option [answer]="answerA"></app-answer-option>
+      <app-answer-option [answerText]="answerA" answerLetter="A"></app-answer-option>
     </div>
     <div class="col">
-      <app-answer-option [answer]="answerB"></app-answer-option>
+      <app-answer-option [answerText]="answerB" answerLetter="B"></app-answer-option>
     </div>
     <div class="col" *ngIf="kind === 'c' || kind === 'm'">
-      <app-answer-option [answer]="answerC"></app-answer-option>
+      <app-answer-option [answerText]="answerC" answerLetter="C"></app-answer-option>
     </div>
     <div class="col" *ngIf="kind === 'c' || kind === 'm'">
-      <app-answer-option [answer]="answerD"></app-answer-option>
+      <app-answer-option [answerText]="answerD" answerLetter="D"></app-answer-option>
     </div>
   </div>
 </ng-container>

@@ -10,6 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { QuizComponent } from './pages/quiz/quiz.component';
 import { AnswerListingAndResponseComponent } from './components/answer-listing-and-response/answer-listing-and-response.component';
 import { AnswerOptionComponent } from './components/answer-option/answer-option.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import * as QuizReducer from './reducers/quiz.reducers';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,8 @@ import { AnswerOptionComponent } from './components/answer-option/answer-option.
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    StoreModule.forRoot({ quiz: QuizReducer.reducer }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
