@@ -86,7 +86,13 @@ export class GameService {
             }
           }
         }),
-        tap(_ => { this.store.dispatch(questionLoaded({ gameid, questionId: question })) }),
+        tap(d => {
+          this.store.dispatch(questionLoaded({
+            gameid,
+            questionId: question,
+            kind: d.answerData?.kind,
+          }))
+        }),
       )
 
   }

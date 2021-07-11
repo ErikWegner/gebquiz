@@ -14,6 +14,9 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import * as QuizReducer from './state/quiz.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { QuizEffects } from './state/quiz.effects';
+import { AnswerStateService } from './service/answer-state.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import * as QuizReducer from './state/quiz.reducers';
     FormsModule,
     StoreModule.forRoot({ quiz: QuizReducer.reducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([QuizEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

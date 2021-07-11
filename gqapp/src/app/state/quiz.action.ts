@@ -1,8 +1,13 @@
 import { createAction, props } from '@ngrx/store';
+import { AnswerKind } from '../answer-kind';
 
 export const questionLoaded = createAction(
   '[Quiz] question loaded',
-  props<{ gameid: number, questionId: number }>()
+  props<{
+    gameid: number,
+    questionId: number,
+    kind: AnswerKind | undefined,
+  }>()
 );
 
 export const answerClicked = createAction(

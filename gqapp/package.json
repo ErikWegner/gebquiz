@@ -22,6 +22,7 @@
     "@feathersjs/feathers": "^4.5.11",
     "@feathersjs/rest-client": "^4.5.11",
     "@feathersjs/socketio-client": "^4.5.11",
+    "@ngrx/effects": "^12.2.0",
     "@ngrx/store": "^12.2.0",
     "@ngrx/store-devtools": "^12.2.0",
     "bootstrap": "^5.0.2",
