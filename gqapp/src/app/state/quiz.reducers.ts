@@ -1,7 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { emtpySelectedAnswers } from '../service/game.service';
-import { answerClicked, questionLoaded, savingCompleted } from './quiz.action';
-import { selectedAnswers } from './quiz.selector';
+import { answerClicked, answerSaving, questionLoaded, savingCompleted } from './quiz.action';
 import { QuizState } from './quiz.state';
 
 export const initialState: QuizState = {
@@ -26,8 +25,10 @@ const quizReducer = createReducer(
     ...state,
     //answerToBeSaved: clickData.answer
   })),
+  on(answerSaving, (state) => ({ ...state, answerSaving: true })),
   on(savingCompleted, (state, props) => ({
     ...state,
+    answerSaving: false,
     activeButtons: {
       ...props.selectedAnswers
     }

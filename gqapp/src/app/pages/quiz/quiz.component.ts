@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { map, switchMap } from 'rxjs/operators';
 import { AnswerKind } from 'src/app/answer-kind';
 import { GameService } from 'src/app/service/game.service';
+import { AppState } from 'src/app/state/app.state';
+import { answerSaving } from 'src/app/state/quiz.selector';
 
 @Component({
   selector: 'app-quiz',
@@ -17,11 +20,13 @@ export class QuizComponent implements OnInit {
   prevQuestionNumber = 0;
   description = '';
   answerData: { answerA: string; answerB: string; answerC: string; answerD: string; kind: AnswerKind; } | undefined;
+  answerSaving$ = this.store.pipe(select(answerSaving));
 
   constructor(
     private route: ActivatedRoute,
     private g: GameService,
     private router: Router,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit(): void {

@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
-import { of } from 'rxjs';
-import { exhaustMap, map, tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 import { emtpySelectedAnswers, GameService, SelectedAnswers } from '../service/game.service';
 import { AppState } from './app.state';
 import { answerClicked, answerSaving, savingCompleted } from './quiz.action';
-import { answerToBeSaved, questionId, quiz, selectedAnswers } from './quiz.selector';
+import { quiz } from './quiz.selector';
 import { QuizState } from './quiz.state';
 
 @Injectable()
@@ -19,7 +17,9 @@ export class QuizEffects {
       tap(([action, quiz]) => {
         const selectedAnswers = this.computeSelectedAnswers(action, quiz);
         this.store.dispatch(answerSaving());
-        this.g.saveAnswer(quiz.questionid, selectedAnswers).subscribe(
+        this.g.saveAnswer(quiz.questionid, selectedAnswers)
+          .pipe(delay(200))
+          .subscribe(
           () => {
             this.store.dispatch(savingCompleted({ selectedAnswers }));
           },

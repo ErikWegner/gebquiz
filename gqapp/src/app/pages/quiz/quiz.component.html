@@ -17,6 +17,11 @@
         <div>Previous</div>
       </button>
     </div>
+    <div class="col-1 text-center">
+      <div class="spinner-border" role="status" [hidden]="!(answerSaving$ | async)">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
     <div class="col-4 text-center">
       <button class="btn btn-outline-primary w-100" (click)="next()">
         <div class="arrow">❱</div>
