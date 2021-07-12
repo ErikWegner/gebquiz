@@ -1,6 +1,5 @@
 import { Params, ServiceAddons } from '@feathersjs/feathers';
 import { AuthenticationBaseStrategy, AuthenticationRequest, AuthenticationService, JWTStrategy } from '@feathersjs/authentication';
-import { LocalStrategy } from '@feathersjs/authentication-local';
 import { expressOauth } from '@feathersjs/authentication-oauth';
 import omit from 'lodash/omit';
 

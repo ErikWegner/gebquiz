@@ -1,4 +1,4 @@
-import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/feathers';
+import { Params } from '@feathersjs/feathers';
 import Knex from 'knex';
 import { Application } from '../../declarations';
 

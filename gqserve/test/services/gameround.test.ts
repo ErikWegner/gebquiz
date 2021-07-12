@@ -40,6 +40,7 @@ describe('\'gameround\' service', () => {
       expect(gameroundData.questions[index]).to.have.property('description');
       expect(gameroundData.questions[index]).to.have.property('answerA');
       expect(gameroundData.questions[index]).to.have.property('answerB');
+      expect(gameroundData.questions[index]).to.have.property('answer');
       expect(gameroundData.questions[index]).to.not.have.property('pointsA');
       expect(gameroundData.questions[index]).to.not.have.property('pointsB');
       expect(gameroundData.questions[index]).to.not.have.property('pointsC');

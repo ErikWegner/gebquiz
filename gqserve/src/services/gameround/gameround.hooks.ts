@@ -10,11 +10,12 @@ const { authenticate } = authentication.hooks;
 
 const postResolvers = {
   joins: {
-    questions: (..._args: any[]) => async (game: GameRoundData, { app }: { app: Application }) => {
+    questions: () => async (game: GameRoundData, { app }: { app: Application }) => {
       const db: Knex = app.get('knexClient');
       const questions = await (db
         .select({
           id: 'gamequestions.id',
+          answer: 'gamequestions.answer',
           description: 'questions.description',
           answerA: 'questions.answerA',
           answerB: 'questions.answerB',
