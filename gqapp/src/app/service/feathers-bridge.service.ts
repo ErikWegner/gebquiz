@@ -18,6 +18,7 @@ export class FeathersBridgeService {
     storage: window.localStorage
   });
   gameroundService: Service<any>;
+  answerService: Service<any>;
 
   constructor() {
     this._loggedIn = false;
@@ -26,6 +27,7 @@ export class FeathersBridgeService {
       .configure(restClient.fetch(window.fetch))
       .configure(this.feathersAuthClient)// add authentication plugin
     this.gameroundService = this.feathers.service('gameround');
+    this.answerService = this.feathers.service('answer');
   }
 
   public async login(username: string): Promise<boolean> {

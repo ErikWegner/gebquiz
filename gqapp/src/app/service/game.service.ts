@@ -19,11 +19,20 @@ interface Question {
   answerB: string;
   answerC: string;
   answerD: string;
+  answer?: string;
 }
 
 interface GameRoundData {
   questions?: Question[];
 }
+
+export interface SelectedAnswers {
+  A: boolean;
+  B: boolean;
+  C: boolean;
+  D: boolean;
+}
+
 
 export interface QuestionData {
   meta: {
@@ -31,20 +40,23 @@ export interface QuestionData {
     prevQuestionNumber: number;
   }
   description: string;
+  answerId: number;
   answerData?: {
     answerA: string;
     answerB: string;
     answerC: string;
     answerD: string;
     kind: AnswerKind;
+    selectedAnswers: SelectedAnswers;
   }
 }
+
+export const emtpySelectedAnswers = (): SelectedAnswers => ({ A: false, B: false, C: false, D: false });
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-
   constructor(
     private fbs: FeathersBridgeService,
     private store: Store<AppState>,
@@ -66,14 +78,25 @@ export class GameService {
         map((grd: GameRoundData): QuestionData => {
           const len = grd.questions?.length || 0;
           if (!grd.questions || len === 0) {
-            return { meta: { nextQuestionNumber: 0, prevQuestionNumber: 0 }, description: 'ERROR: Empty game' };
+            return {
+              meta: { nextQuestionNumber: 0, prevQuestionNumber: 0 },
+              description: 'ERROR: Empty game',
+              answerId: 0,
+            };
           }
           const questionData = grd.questions[question < len ? question : 0];
           const nextQuestionNumber = (question + 1) % len;
           const prevQuestionNumber = (question + len - 1) % len;
 
+          const selectedAnswers = emtpySelectedAnswers();
+          const serverSelectedAnswers = JSON.parse(questionData.answer || '{}').a || '';
+          'ABCD'.split('').forEach(c => {
+            (selectedAnswers as any)[c] = serverSelectedAnswers.indexOf(c) > -1;
+          });
+
           return {
             description: questionData.description,
+            answerId: questionData.id,
             meta: {
               nextQuestionNumber, prevQuestionNumber,
             },
@@ -83,17 +106,23 @@ export class GameService {
               answerC: questionData.answerC,
               answerD: questionData.answerD,
               kind: questionData.kind,
+              selectedAnswers,
             }
           }
         }),
         tap(d => {
           this.store.dispatch(questionLoaded({
             gameid,
-            questionId: question,
+            questionId: d.answerId,
             kind: d.answerData?.kind,
+            selectedAnswers: d.answerData?.selectedAnswers || emtpySelectedAnswers(),
           }))
         }),
-      )
+    )
+  }
 
+  public saveAnswer(questionId: number, selectedAnswers: SelectedAnswers): Observable<void> {
+    const answer = Object.entries(selectedAnswers).filter((e) => e[1]).map(e => e[0]).join('');
+    return from(this.fbs.answerService.create({ id: questionId, answer }));
   }
 }

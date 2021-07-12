@@ -1,4 +1,5 @@
 import { AnswerKind } from "../answer-kind";
+import { SelectedAnswers } from "../service/game.service";
 
 export interface QuizState {
   gameid: number;
@@ -6,5 +7,5 @@ export interface QuizState {
   kind?: AnswerKind | undefined;
   answerSaving: boolean;
   answerToBeSaved: string;
-  activeButtons: number[];
+  activeButtons: SelectedAnswers;
 };

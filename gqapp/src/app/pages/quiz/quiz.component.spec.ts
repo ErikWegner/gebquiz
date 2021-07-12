@@ -28,6 +28,7 @@ describe('QuizComponent', () => {
       prevQuestionNumber: 0,
     },
     description: '',
+    answerId: 0,
   });
 
   beforeEach(async () => {

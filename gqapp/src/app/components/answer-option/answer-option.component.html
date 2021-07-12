@@ -1,5 +1,6 @@
 <div class="border m-1 p-3 display-3">
-  <button (click)="click()" [disabled]="(answerSaving$ | async)">
+  <button (click)="click()" [disabled]="(answerSaving$ | async)" class="btn"
+    [ngClass]="(buttonActive$ | async) ? 'btn-primary' : 'btn-secondary'">
     {{answerText}}
   </button>
 </div>
