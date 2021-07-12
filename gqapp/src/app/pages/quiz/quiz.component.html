@@ -1,29 +1,27 @@
-<div class="row">
-  <h1>Question</h1>
-</div>
-<div class="row">
-  <p class="display-3">{{ description }}</p>
-</div>
-<div class="row">
-  <app-answer-listing-and-response [kind]="answerData?.kind || ''" [answerA]="answerData?.answerA ?? ''"
-    [answerB]="answerData?.answerB ?? ''" [answerC]="answerData?.answerC ?? ''" [answerD]="answerData?.answerD ?? ''">
-  </app-answer-listing-and-response>
+<div class="h100 d-flex flex-column flex-nowrap justify-content-center align-items-stretch">
+  <div>
+    <h1>Question</h1>
   </div>
-  <div class="row">
-  <div class="row justify-content-evenly">
-    <div class="col-4">
-      <button class="btn btn-outline-primary w-100" (click)="prev()">
+  <div class="flex-fill overflow-auto border">
+    <p class="display-3">{{ description }}</p>
+  </div>
+  <div>
+    <app-answer-listing-and-response [kind]="answerData?.kind || ''" [answerA]="answerData?.answerA ?? ''"
+      [answerB]="answerData?.answerB ?? ''" [answerC]="answerData?.answerC ?? ''" [answerD]="answerData?.answerD ?? ''">
+    </app-answer-listing-and-response>
+  </div>
+  <div class="container mt-1 border-top pt-1">
+    <div class="row justify-content-evenly">
+      <button class="col-5 btn btn-outline-primary flex-fill d-block" (click)="prev()">
         <div class="arrow">❰</div>
         <div>Previous</div>
       </button>
-    </div>
-    <div class="col-1 text-center">
-      <div class="spinner-border" role="status" [hidden]="!(answerSaving$ | async)">
-        <span class="visually-hidden">Loading...</span>
+      <div class="col-2 text-center">
+        <div class="spinner-border spinner-border-sm" role="status" [hidden]="!(answerSaving$ | async)">
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
-    </div>
-    <div class="col-4 text-center">
-      <button class="btn btn-outline-primary w-100" (click)="next()">
+      <button class="col-5 btn btn-outline-primary flex-fill d-block" (click)="next()">
         <div class="arrow">❱</div>
         <div>Next</div>
       </button>

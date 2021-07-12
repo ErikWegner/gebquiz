@@ -1,6 +1,4 @@
-<div class="border m-1 p-3 display-3">
-  <button (click)="click()" [disabled]="(answerSaving$ | async)" class="btn"
-    [ngClass]="(buttonActive$ | async) ? 'btn-primary' : 'btn-secondary'">
-    {{answerText}}
-  </button>
-</div>
+<button (click)="click()" [disabled]="(answerSaving$ | async)" class="flex-grow-1 d-block btn m-1"
+  [ngClass]="(buttonActive$ | async) ? 'btn-primary' : 'btn-secondary'">
+  {{answerText}}
+</button>

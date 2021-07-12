@@ -1,3 +1,7 @@
 .arrow {
-  font-size: 500%;
+  font-size: calc(100vh / 25);
+}
+
+.h100 {
+  height: 100vh;
 }
