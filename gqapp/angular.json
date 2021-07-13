@@ -16,10 +16,19 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "de": "src/locale/messages.de.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": [
+              "de"
+            ],
             "outputPath": "dist/gqapp",
             "index": "src/index.html",
             "main": "src/main.ts",
