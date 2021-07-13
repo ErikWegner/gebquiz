@@ -57,21 +57,32 @@ export const emtpySelectedAnswers = (): SelectedAnswers => ({ A: false, B: false
   providedIn: 'root'
 })
 export class GameService {
-  private lastScore = new Subject<number>();
-  public readonly lastScore$ = this.lastScore.asObservable();
+
+  private _lastScore: number;
+  public get lastScore(): number {
+    const r = this._lastScore;
+    this._lastScore = -1;
+    return r;
+  }
+  private set lastScore(v: number) {
+    this._lastScore = v;
+  }
 
   constructor(
     private fbs: FeathersBridgeService,
     private store: Store<AppState>,
-  ) { }
+  ) {
+    this._lastScore = -1;
+  }
 
   public finalize(gameid: number): Observable<{ score: number }> {
     return from(this.fbs.gameroundService.patch(gameid, { action: 'close' })).pipe(
-      tap(h => this.lastScore.next(h.score)),
+      tap(h => this.lastScore = h.score),
     );
   }
 
   public startGame(): Observable<{ gameid: number }> {
+    this.lastScore = -1;
     return new Observable(observer => {
       this.fbs.gameroundService
         .create({})

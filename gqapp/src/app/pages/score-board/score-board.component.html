@@ -1,4 +1,9 @@
 <h1>High Scores</h1>
+<div [@waitShrink]="'shrink'" class="result-container" *ngIf="earnedPoints>-1">
+  <span class="result-head" i18n>You scored:</span>
+  <span class="result" i18n>{{earnedPoints}} Points</span>
+</div>
+<div class="progress" [@waitProgress]="'progress'" *ngIf="earnedPoints>-1"></div>
 <div class="border-top border-bottom">
   <div *ngFor="let item of highscores$ | async as list; index as i;" [ngClass]="classes[i]" i18n>
     Position {{i + 1}}: {{item.name}} {{item.score}} points

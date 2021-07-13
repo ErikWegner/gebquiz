@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,6 @@ import { environment } from '../environments/environment';
 import * as QuizReducer from './state/quiz.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { QuizEffects } from './state/quiz.effects';
-import { AnswerStateService } from './service/answer-state.service';
 import { ScoreBoardComponent } from './pages/score-board/score-board.component';
 
 @NgModule({
@@ -32,6 +32,7 @@ import { ScoreBoardComponent } from './pages/score-board/score-board.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     StoreModule.forRoot({ quiz: QuizReducer.reducer }),
