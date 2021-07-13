@@ -58,7 +58,7 @@ export class QuizComponent implements OnInit {
   next(): void {
     if (this.nextQuestionNumber === 0 && !this.askLeave) {
       this.askLeave = true;
-      this.modalDlg = new bootstrap.Modal(document.getElementById('finalizedlg'), {})
+      this.modalDlg = new bootstrap.Modal(document.getElementById('finalizedlg'), { backdrop: 'static' })
       this.modalDlg.show();
       return
     }

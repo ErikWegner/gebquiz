@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { from, Observable, ReplaySubject } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { questionLoaded } from '../state/quiz.action';
 import { AnswerKind } from '../answer-kind';
@@ -57,7 +57,7 @@ export const emtpySelectedAnswers = (): SelectedAnswers => ({ A: false, B: false
   providedIn: 'root'
 })
 export class GameService {
-  private lastScore = new ReplaySubject<number>(1);
+  private lastScore = new Subject<number>();
   public readonly lastScore$ = this.lastScore.asObservable();
 
   constructor(
