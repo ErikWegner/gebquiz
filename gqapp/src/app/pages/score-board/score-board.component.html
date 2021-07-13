@@ -1,0 +1,9 @@
+<h1>High Scores</h1>
+<div class="border-top border-bottom">
+  <div *ngFor="let item of highscores$ | async as list; index as i;" [ngClass]="classes[i]" i18n>
+    Position {{i + 1}}: {{item.name}} {{item.score}} points
+  </div>
+</div>
+<div>
+  <a routerLink="/username" i18n>New game</a>
+</div>

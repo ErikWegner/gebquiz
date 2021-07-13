@@ -7,6 +7,8 @@ import { GameService } from 'src/app/service/game.service';
 import { AppState } from 'src/app/state/app.state';
 import { answerSaving } from 'src/app/state/quiz.selector';
 
+declare var bootstrap: { Modal: new (arg0: HTMLElement | null, arg1: any) => any; };
+
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -21,6 +23,8 @@ export class QuizComponent implements OnInit {
   description = '';
   answerData: { answerA: string; answerB: string; answerC: string; answerD: string; kind: AnswerKind; } | undefined;
   answerSaving$ = this.store.pipe(select(answerSaving));
+  askLeave = false;
+  modalDlg: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,10 +56,24 @@ export class QuizComponent implements OnInit {
   }
 
   next(): void {
+    if (this.nextQuestionNumber === 0 && !this.askLeave) {
+      this.askLeave = true;
+      this.modalDlg = new bootstrap.Modal(document.getElementById('finalizedlg'), {})
+      this.modalDlg.show();
+      return
+    }
+    this.askLeave = false;
     this.router.navigate(['quiz', this.gameid, { q: this.nextQuestionNumber }]);
   }
 
   prev(): void {
     this.router.navigate(['quiz', this.gameid, { q: this.prevQuestionNumber }]);
+  }
+
+  finalize(): void {
+    this.g.finalize(this.gameid).subscribe((h) => {
+      this.modalDlg.hide();
+      this.router.navigate(['board']);
+    });
   }
 }

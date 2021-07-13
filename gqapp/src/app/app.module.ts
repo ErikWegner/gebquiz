@@ -17,6 +17,7 @@ import * as QuizReducer from './state/quiz.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { QuizEffects } from './state/quiz.effects';
 import { AnswerStateService } from './service/answer-state.service';
+import { ScoreBoardComponent } from './pages/score-board/score-board.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AnswerStateService } from './service/answer-state.service';
     UsernameComponent,
     QuizComponent,
     AnswerListingAndResponseComponent,
-    AnswerOptionComponent
+    AnswerOptionComponent,
+    ScoreBoardComponent
   ],
   imports: [
     BrowserModule,

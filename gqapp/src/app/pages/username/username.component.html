@@ -1,7 +1,7 @@
 <div class="p-5 mb-4 bg-light rounded-3">
   <div class="container-fluid py-5">
-    <h1 class="display-5 fw-bold">Have you been playing?</h1>
-    <p class="col-md-8 fs-4">
+    <h1 class="display-5 fw-bold" i18n>Have you been playing?</h1>
+    <p class="col-md-8 fs-4" i18n>
       You can accept or modify the username.
     </p>
   </div>
@@ -9,11 +9,11 @@
 
 <div class="row">
   <div class="mb-3">
-    <label for="username" class="form-label">Your name</label>
+    <label for="username" class="form-label" i18n>Your name</label>
     <input type="text" class="form-control" id="username" [(ngModel)]="username" aria-describedby="usernameHelp">
-    <div id="usernameHelp" class="form-text">Visible on the high score list.</div>
+    <div id="usernameHelp" class="form-text" i18n>Visible on the high score list.</div>
   </div>
-  <button type="button" class="btn btn-primary" (click)="login();">Start the quiz</button>
+  <button type="button" class="btn btn-primary" (click)="login();" i18n>Start the quiz</button>
 </div>
 
 <div *ngIf="errormessage" class="error">{{ errormessage }}</div>

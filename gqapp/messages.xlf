@@ -9,6 +9,97 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4452427314943113135" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/quiz/quiz.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3885497195825665706" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/quiz/quiz.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8384225360105280028" datatype="html">
+        <source>Complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/quiz/quiz.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5653054232180571527" datatype="html">
+        <source>Submit your answers and see your score?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/quiz/quiz.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="734934965373819800" datatype="html">
+        <source>Go back</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/quiz/quiz.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5376819315333519244" datatype="html">
+        <source>Finalize</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/quiz/quiz.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7797690916296377794" datatype="html">
+        <source> Position <x id="INTERPOLATION" equiv-text="{{i + 1}}"/>: <x id="INTERPOLATION_1" equiv-text="{{item.name}}"/> <x id="INTERPOLATION_2" equiv-text="{{item.score}}"/> points </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/score-board/score-board.component.html</context>
+          <context context-type="linenumber">3,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2128624502640961509" datatype="html">
+        <source>New game</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/score-board/score-board.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5177907863862883239" datatype="html">
+        <source>Have you been playing?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/username/username.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9151220954919409047" datatype="html">
+        <source> You can accept or modify the username. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/username/username.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8203367621031610680" datatype="html">
+        <source>Your name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/username/username.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="456158433427293533" datatype="html">
+        <source>Visible on the high score list.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/username/username.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7327294839340297633" datatype="html">
+        <source>Start the quiz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/username/username.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

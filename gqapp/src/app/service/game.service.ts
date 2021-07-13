@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { from, Observable } from 'rxjs';
+import { from, Observable, ReplaySubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { questionLoaded } from '../state/quiz.action';
 import { AnswerKind } from '../answer-kind';
@@ -57,10 +57,19 @@ export const emtpySelectedAnswers = (): SelectedAnswers => ({ A: false, B: false
   providedIn: 'root'
 })
 export class GameService {
+  private lastScore = new ReplaySubject<number>(1);
+  public readonly lastScore$ = this.lastScore.asObservable();
+
   constructor(
     private fbs: FeathersBridgeService,
     private store: Store<AppState>,
   ) { }
+
+  public finalize(gameid: number): Observable<{ score: number }> {
+    return from(this.fbs.gameroundService.patch(gameid, { action: 'close' })).pipe(
+      tap(h => this.lastScore.next(h.score)),
+    );
+  }
 
   public startGame(): Observable<{ gameid: number }> {
     return new Observable(observer => {
@@ -124,5 +133,9 @@ export class GameService {
   public saveAnswer(questionId: number, selectedAnswers: SelectedAnswers): Observable<void> {
     const answer = Object.entries(selectedAnswers).filter((e) => e[1]).map(e => e[0]).join('');
     return from(this.fbs.answerService.create({ id: questionId, answer }));
+  }
+
+  getHighscores(): Observable<{ name: string, score: string }[]> {
+    return from(this.fbs.highscoreService.find());
   }
 }

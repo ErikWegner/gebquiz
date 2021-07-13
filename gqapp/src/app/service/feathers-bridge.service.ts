@@ -19,6 +19,7 @@ export class FeathersBridgeService {
   });
   gameroundService: Service<any>;
   answerService: Service<any>;
+  highscoreService: Service<any>;
 
   constructor() {
     this._loggedIn = false;
@@ -28,6 +29,7 @@ export class FeathersBridgeService {
       .configure(this.feathersAuthClient)// add authentication plugin
     this.gameroundService = this.feathers.service('gameround');
     this.answerService = this.feathers.service('answer');
+    this.highscoreService = this.feathers.service('highscore');
   }
 
   public async login(username: string): Promise<boolean> {
