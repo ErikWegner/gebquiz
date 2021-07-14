@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { GameService, QuestionData } from 'src/app/service/game.service';
+import { AppState } from 'src/app/state/app.state';
 import { ActivatedRouteStub } from 'testing/activated-route-stub';
+import { quizStateStub } from 'testing/quiz-state-stub';
 import { randomNumber, randomString } from 'testing/utils';
 
 import { QuizComponent } from './quiz.component';
@@ -17,10 +20,12 @@ export class AnswerListingAndResponseStubComponent { }
 
 describe('QuizComponent', () => {
   let component: QuizComponent;
+  let store: MockStore;
   let fixture: ComponentFixture<QuizComponent>;
   let activatedRouteStub: ActivatedRouteStub;
   let gspy: jasmine.SpyObj<GameService>;
   let rspy: jasmine.SpyObj<Router>;
+  const initialState: AppState = { quiz: quizStateStub() };
 
   const getQuestionResponse = (): QuestionData => ({
     meta: {
@@ -45,6 +50,7 @@ describe('QuizComponent', () => {
         AnswerListingAndResponseStubComponent,
       ],
       providers: [
+        provideMockStore({ initialState }),
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: GameService, useValue: g },
         { provide: Router, useValue: r },
@@ -54,6 +60,7 @@ describe('QuizComponent', () => {
     activatedRouteStub = TestBed.inject(ActivatedRoute) as any as ActivatedRouteStub;
     gspy = TestBed.inject(GameService) as jasmine.SpyObj<GameService>;
     rspy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    store = TestBed.inject(MockStore);
   });
 
   beforeEach(() => {

@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { AppState } from 'src/app/state/app.state';
+import { quizStateStub } from 'testing/quiz-state-stub';
 import { AnswerOptionComponent } from '../answer-option/answer-option.component';
 
 import { AnswerListingAndResponseComponent } from './answer-listing-and-response.component';
@@ -7,15 +10,21 @@ import { AnswerListingAndResponseComponent } from './answer-listing-and-response
 describe('AnswerListingAndResponseComponent', () => {
   let component: AnswerListingAndResponseComponent;
   let fixture: ComponentFixture<AnswerListingAndResponseComponent>;
+  let store: MockStore;
+  const initialState: AppState = { quiz: quizStateStub() };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AnswerListingAndResponseComponent,
         AnswerOptionComponent,
-      ]
+      ],
+      providers: [
+        provideMockStore({ initialState }),
+      ],
     })
       .compileComponents();
+    store = TestBed.inject(MockStore);
   });
 
   beforeEach(() => {
